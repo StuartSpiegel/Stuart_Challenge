@@ -1,0 +1,56 @@
+- hosts: webserver
+  vars_files:
+  - vars.yml
+
+  tasks:
+  - name: "InstallApache2 httpd"
+    ansible.builtin.apt:
+      name: apache2
+      state: present
+      update_cache: true
+
+  - name: "Create document root"
+    file:
+      path: "{{ document_root_location }}"
+      state: directory
+    register: create_dir
+      
+  - name: "Copy source code/artifacts "          
+    copy:
+       src: "{{ source_code_path }}"
+       dest: "{{ document_root_location }}"
+    when: create_dir.failed == false
+  
+  - name: "Copy conf file"          
+    template:
+       src: "{{ webserver_conf_file }}"
+       dest: "/etc/apache2/{{ project_name }}.conf"
+    notify: "Restart Httpd"
+
+  - name: "Install firewalld"
+    ansible.builtin.apt:
+      name: firewalld
+      state: present
+      update_cache: true   
+
+  - name: "start firewalld"
+    command: "systemctl start firewalld"
+      
+  - name: "Configure firewalld"
+    ansible.posix.firewalld:
+      service: https
+      permanent: true
+      state: enabled    
+
+  - name: "Add firewall rule" 
+    firewalld:
+        port: "{{ port_number }}/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+  
+  handlers:
+   - name: "Restart Httpd"
+     service:
+       name: "httpd"
+       state: restarted

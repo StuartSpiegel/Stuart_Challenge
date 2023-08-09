@@ -1,6 +1,6 @@
 servers:
   hosts:
-    server1:
+    webserver:
       ansible_host: localhost
       ansible_connection: local
       ansible_port: 22

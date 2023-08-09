@@ -1,1 +1,1 @@
-ansible-playbook -i hosts.yaml apache.yaml
+ansible-playbook -i hosts.yaml configureApache.yaml

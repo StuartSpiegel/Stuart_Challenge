@@ -1,6 +1,6 @@
 - name: Ansible Playbook to Install and Setup Apache on Ubuntu
   hosts: servers
-  become: yes
+  become: true
   tasks:
     - name: Install latest version of Apache
       apt: name=apache2 update_cache=yes state=latest
@@ -27,12 +27,11 @@
       command: a2ensite {{ http_conf }}
       notify: restart-apache
  
-    - name: "UFW firewall allow HTTP on port {{ http_port }}"
-      become: true
-      ufw:
-        rule: allow
-        port: "{{ http_port }}"
-        proto: tcp
+        # - name: "UFW firewall allow HTTP on port {{ http_port }}"
+        # ufw:
+        # rule: allow
+        # port: "{{ http_port }}"
+        #  proto: tcp
  
   handlers:
     - name: restart-apache

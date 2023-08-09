@@ -1,0 +1,5 @@
+project_name: "Stuart Challenege"
+source_code_path: "/project/Stuart_Challenge/SED Challenge Spiegel/infra/Ansible/"
+webserver_conf_file: "myWebsite.conf.j2"
+port_number: 80
+document_root_location: "/var/www/myWebsite/files/index-template.html"  
