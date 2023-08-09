@@ -1,12 +1,10 @@
 servers:
   hosts:
     server1:
-      ansible_host: 127.0.0.1
-      connection: local
+      ansible_host: localhost
+      ansible_connection: local
       ansible_port: 22
-      ansible_ssh_user: ansible
-      ansible_ssh_private_key_file: ansible.key
       http_host: mydomain.local
-      http_conf: mydomain.local.conf
+      http_conf: my.domain.local.conf
   vars:
     http_port: "80"

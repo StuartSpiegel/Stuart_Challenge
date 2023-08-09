@@ -28,6 +28,7 @@
       notify: restart-apache
  
     - name: "UFW firewall allow HTTP on port {{ http_port }}"
+      become: true
       ufw:
         rule: allow
         port: "{{ http_port }}"
