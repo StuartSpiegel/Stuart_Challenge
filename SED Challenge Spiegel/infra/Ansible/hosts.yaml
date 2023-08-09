@@ -1,6 +1,6 @@
 servers:
   hosts:
-    webserver:
+    web:
       ansible_host: localhost
       ansible_connection: local
       ansible_port: 22
@@ -8,3 +8,5 @@ servers:
       http_conf: my.domain.local.conf
   vars:
     http_port: "80"
+    domain: helloworld.com
+    ansible_user: root
